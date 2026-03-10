@@ -1,6 +1,8 @@
 package com.plcoding.cryptocurrencyappyt.data.remote.dto
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.plcoding.cryptocurrencyappyt.data.local.entity.CoinDetailEntity
 import com.plcoding.cryptocurrencyappyt.domain.model.CoinDetail
 
 data class CoinDetailDto(
@@ -53,3 +55,17 @@ fun CoinDetailDto.toCoinDetail(): CoinDetail =
         tags = tags.map { it.name },
         team = team
     )
+
+fun CoinDetailDto.toCoinDetailEntity(): CoinDetailEntity {
+    val gson = Gson()
+    return CoinDetailEntity(
+        coinId = id,
+        name = name,
+        description = description,
+        symbol = symbol,
+        rank = rank,
+        isActive = isActive,
+        tagsJson = gson.toJson(tags.map { it.name }),
+        teamJson = gson.toJson(team)
+    )
+}
