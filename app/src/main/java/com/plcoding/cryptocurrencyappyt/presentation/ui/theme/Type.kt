@@ -1,35 +1,34 @@
-package com.plcoding.cryptocurrencyappyt.ui.theme
+package com.plcoding.cryptocurrencyappyt.presentation.ui.theme
 
-import androidx.compose.material.Typography
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
-val Typography = Typography(
-    h1 = TextStyle(
+// Material3 Typography - use copy() on defaults since constructor may be internal
+private val defaultTypography = Typography()
+
+val Typography = defaultTypography.copy(
+    displayLarge = defaultTypography.displayLarge.copy(
         fontWeight = FontWeight.Bold,
-        fontSize = 30.sp,
+        fontSize = 30.sp
     ),
-    h2 = TextStyle(
+    headlineLarge = defaultTypography.headlineLarge.copy(
         fontWeight = FontWeight.SemiBold,
         fontSize = 24.sp
     ),
-    h3 = TextStyle(
+    headlineMedium = defaultTypography.headlineMedium.copy(
         fontWeight = FontWeight.Medium,
         fontSize = 20.sp
     ),
-    h4 = TextStyle(
+    titleLarge = defaultTypography.titleLarge.copy(
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp
     ),
-    body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+    bodyLarge = defaultTypography.bodyLarge.copy(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     ),
-    body2 = TextStyle(
+    bodyMedium = defaultTypography.bodyMedium.copy(
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp
     )
