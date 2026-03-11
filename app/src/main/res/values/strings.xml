@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CryptocurrencyAppYT</string>
+    <string name="active">active</string>
+    <string name="inactive">inactive</string>
 </resources>

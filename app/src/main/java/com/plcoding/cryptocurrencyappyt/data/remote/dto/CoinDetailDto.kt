@@ -34,12 +34,13 @@ data class CoinDetailDto(
     val orgStructure: String,
     @SerializedName("proof_type")
     val proofType: String,
-    val rank: Int,
+    @SerializedName("rank")
+    val rank: Int?,
     @SerializedName("started_at")
     val startedAt: String,
     val symbol: String,
-    val tags: List<Tag>,
-    val team: List<TeamMember>,
+    val tags: List<Tag>?,
+    val team: List<TeamMember>?,
     val type: String,
     val whitepaper: Whitepaper
 )
@@ -50,22 +51,24 @@ fun CoinDetailDto.toCoinDetail(): CoinDetail =
         name = name,
         description = description,
         symbol = symbol,
-        rank = rank,
+        rank = rank ?: 0,
         isActive = isActive,
-        tags = tags.map { it.name },
-        team = team
+        tags = tags?.map { it.name } ?: emptyList(),
+        team = team ?: emptyList()
     )
 
 fun CoinDetailDto.toCoinDetailEntity(): CoinDetailEntity {
     val gson = Gson()
+    val tagNames: List<String> = tags?.map { it.name } ?: emptyList()
+    val teamList: List<TeamMember> = team ?: emptyList()
     return CoinDetailEntity(
         coinId = id,
         name = name,
         description = description,
         symbol = symbol,
-        rank = rank,
+        rank = rank ?: 0,
         isActive = isActive,
-        tagsJson = gson.toJson(tags.map { it.name }),
-        teamJson = gson.toJson(team)
+        tagsJson = gson.toJson(tagNames),
+        teamJson = gson.toJson(teamList)
     )
 }

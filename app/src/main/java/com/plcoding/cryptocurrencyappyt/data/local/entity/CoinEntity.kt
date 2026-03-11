@@ -1,5 +1,6 @@
 package com.plcoding.cryptocurrencyappyt.data.local.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.plcoding.cryptocurrencyappyt.domain.model.Coin
@@ -9,7 +10,7 @@ data class CoinEntity(
     @PrimaryKey val id: String,
     val isActive: Boolean,
     val name: String,
-    val rank: Int,
+    @ColumnInfo(name = "coin_rank") val rank: Int,
     val symbol: String,
 )
 

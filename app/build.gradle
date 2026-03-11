@@ -21,6 +21,13 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+                arg("room.incremental.schema", "true")
+            }
+        }
     }
 
     buildTypes {

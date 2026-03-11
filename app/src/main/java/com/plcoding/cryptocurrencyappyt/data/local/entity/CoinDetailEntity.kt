@@ -1,5 +1,6 @@
 package com.plcoding.cryptocurrencyappyt.data.local.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.Gson
@@ -13,7 +14,7 @@ data class CoinDetailEntity(
     val name: String,
     val description: String,
     val symbol: String,
-    val rank: Int,
+    @ColumnInfo(name = "coin_rank") val rank: Int,
     val isActive: Boolean,
     val tagsJson: String,
     val teamJson: String
@@ -21,8 +22,11 @@ data class CoinDetailEntity(
 
 fun CoinDetailEntity.toCoinDetail(): CoinDetail {
     val gson = Gson()
-    val tags: List<String> = gson.fromJson(tagsJson, object : TypeToken<List<String>>() {}.type)
-    val team: List<TeamMember> = gson.fromJson(teamJson, object : TypeToken<List<TeamMember>>() {}.type)
+    val tags: List<String> = if (tagsJson.isBlank()) emptyList()
+        else gson.fromJson(tagsJson, object : TypeToken<List<String>>() {}.type) ?: emptyList()
+    val teamType = TypeToken.getParameterized(List::class.java, TeamMember::class.java).type
+    val team: List<TeamMember> = if (teamJson.isBlank()) emptyList()
+        else gson.fromJson(teamJson, teamType) ?: emptyList()
     return CoinDetail(
         coinId = coinId,
         name = name,

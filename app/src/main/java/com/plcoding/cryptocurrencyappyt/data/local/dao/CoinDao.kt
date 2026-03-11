@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CoinDao {
 
-    @Query("SELECT * FROM coins ORDER BY rank ASC")
-    fun getCoins(): Flow<List<CoinEntity>>
+    @Query("SELECT * FROM coins ORDER BY coin_rank ASC LIMIT :limit")
+    fun getCoins(limit: Int): Flow<List<CoinEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(coins: List<CoinEntity>)
